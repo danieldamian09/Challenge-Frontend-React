@@ -9,7 +9,16 @@ function App() {
   const [heroes, guardarHeroes] = useState([])
   const [name, guardarName] = useState()
   const [consulta, guardarConsulta] = useState(false)
-  const [resultadoHeroe, guardarResultadoHeroe] = useState({})
+  const [heroe, guardarHeroe] = useState({
+    name: '',
+    id: '',
+    powerstats: '',
+    biography: '',
+    appearance: '',
+    work: '',
+    connections: '',
+    image: ''
+  })
 
   const agregarHeroesEstado = heroe => {
     guardarHeroes([
@@ -29,8 +38,9 @@ function App() {
         const url = `https://www.superheroapi.com/api.php/${apiKey}/search/${name}`
 
         axios.get(url)
-          .then(result => {
-            console.log(result.data)
+          .then(res => {
+            guardarHeroe(res.data)
+            agregarHeroesEstado(res.data)
           })
           .catch(console.log())
       }
@@ -52,10 +62,11 @@ function App() {
             agregarHeroesEstado={agregarHeroesEstado}
             guardarBusqueda={guardarBusqueda}
             guardarConsulta={guardarConsulta}
+            heroe={heroe}
           />
 
           <TablaHeroes
-            resultadoHeroe={resultadoHeroe}
+            heroe={heroe}
           />
         </div>
       </header>
