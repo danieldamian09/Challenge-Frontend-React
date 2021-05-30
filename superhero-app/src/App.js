@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import FormHeroes from './components/FormHeroes';
 import TablaHeroes from './components/TablaHeroes';
+import Acumulativo from './components/Acumulativo';
 
 function App() {
   // definir el estado de la aplicacion donde van a estar todos los super-heroes selecionados
@@ -50,7 +51,13 @@ function App() {
 
     consultarApi()
 
-  }, [consulta])
+  }, [consulta, name, agregarHeroesEstado])
+
+  // eliminar heroe
+  const eliminarHeroe = id => {
+    const nuevosGuardarHeroes = heroes.filter(heroe => heroe.results[0].id !== id);
+    guardarHeroes(nuevosGuardarHeroes)
+  }
 
 
   return (
@@ -65,8 +72,13 @@ function App() {
             heroe={heroe}
           />
 
-          <TablaHeroes
+          <Acumulativo
             heroe={heroe}
+          />
+
+          <TablaHeroes
+            heroes={heroes}
+            eliminarHeroe={eliminarHeroe}
           />
         </div>
       </header>

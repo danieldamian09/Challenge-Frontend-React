@@ -1,23 +1,23 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import ItemHeroe from './ItemHeroe'
 
 
-function TablaHeroes({heroe}) {
-
-    const {results} = heroe
-
-    console.log(heroe)
-    console.log(results)
-    
-    
+function TablaHeroes({ heroes, eliminarHeroe }) {
 
     return (
-        <div>
-            <ul>
-                
-            </ul>
-        </div>
+        <Fragment>
+            <div className="row mt-4">
+                {heroes.map((heroe, index) => (
+                    <ItemHeroe
+                    key={index}
+                    heroe={heroe}
+                    eliminarHeroe ={eliminarHeroe}
+                    />
+                ))}
+            </div>
+        </Fragment>
     )
+
 }
 
 export default TablaHeroes
