@@ -3,13 +3,14 @@ import axios from 'axios';
 import './App.css';
 import FormHeroes from './components/FormHeroes';
 import TablaHeroes from './components/TablaHeroes';
-import Acumulativo from './components/Acumulativo';
+
 
 function App() {
   // definir el estado de la aplicacion donde van a estar todos los super-heroes selecionados
   const [heroes, guardarHeroes] = useState([])
   const [name, guardarName] = useState()
   const [consulta, guardarConsulta] = useState(false)
+  const [totalPoderes, guardarTotalPoderes] = useState(0)
   const [heroe, guardarHeroe] = useState({
     name: '',
     id: '',
@@ -26,6 +27,13 @@ function App() {
       ...heroes,
       heroe
     ])
+    const { results } = heroe;
+    let poderes = results[0].powerstats;
+    const sumValues = (poderes) => Object.keys(poderes).reduce((acc, value) => acc + parseInt(poderes[value]), 0);
+    // console.log(sumValues(poderes))
+    guardarTotalPoderes(
+      totalPoderes + sumValues(poderes)
+    )
   }
 
   const guardarBusqueda = name => {
@@ -51,7 +59,7 @@ function App() {
 
     consultarApi()
 
-  }, [consulta, name, agregarHeroesEstado])
+  }, [consulta])
 
   // eliminar heroe
   const eliminarHeroe = id => {
@@ -72,9 +80,9 @@ function App() {
             heroe={heroe}
           />
 
-          <Acumulativo
-            heroe={heroe}
-          />
+          <div className="row d-flex justify-content-lg-end align-content-md-center align-content-sm-center mt-2">
+            {totalPoderes ? <div className="col-lg-3 col-md-3 alert alert-primary">Total de poderes {totalPoderes}</div> : null}
+          </div>
 
           <TablaHeroes
             heroes={heroes}

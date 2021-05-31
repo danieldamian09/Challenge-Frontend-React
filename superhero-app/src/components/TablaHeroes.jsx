@@ -6,7 +6,8 @@ function TablaHeroes({ heroes, eliminarHeroe }) {
 
     return (
         <Fragment>
-            <div className="row mt-4">
+            <div className="mt-2 text-center">
+                <div class="row w-80 mx-auto">
                 {heroes.map((heroe, index) => (
                     <ItemHeroe
                     key={index}
@@ -14,6 +15,7 @@ function TablaHeroes({ heroes, eliminarHeroe }) {
                     eliminarHeroe ={eliminarHeroe}
                     />
                 ))}
+                </div>
             </div>
         </Fragment>
     )
